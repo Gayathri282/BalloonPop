@@ -20,9 +20,11 @@
   function resize() {
     W = window.visualViewport ? window.visualViewport.width : window.innerWidth;
     H = window.visualViewport ? window.visualViewport.height : window.innerHeight;
-    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    dpr = Math.min(window.devicePixelRatio || 1, 3);
     canvas.width = Math.round(W * dpr);
     canvas.height = Math.round(H * dpr);
+    canvas.style.width = W + "px";
+    canvas.style.height = H + "px";
   }
   window.addEventListener("resize", resize);
   if (window.visualViewport) {
@@ -759,7 +761,7 @@
   }
 
   function render() {
-    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
     // Screen Shake effect offset
     var sx = (Math.random() - 0.5) * shake * 12;
