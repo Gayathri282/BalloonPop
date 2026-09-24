@@ -18,13 +18,16 @@
   var dpr = Math.min(window.devicePixelRatio || 1, 2);
 
   function resize() {
-    W = window.innerWidth;
-    H = window.innerHeight;
+    W = window.visualViewport ? window.visualViewport.width : window.innerWidth;
+    H = window.visualViewport ? window.visualViewport.height : window.innerHeight;
     dpr = Math.min(window.devicePixelRatio || 1, 2);
     canvas.width = Math.round(W * dpr);
     canvas.height = Math.round(H * dpr);
   }
   window.addEventListener("resize", resize);
+  if (window.visualViewport) {
+    window.visualViewport.addEventListener("resize", resize);
+  }
   window.addEventListener("orientationchange", function () {
     setTimeout(resize, 150);
   });
@@ -291,6 +294,7 @@
      Spawning & Particles
      ========================================== */
   function burst(x, y, n, color, spread, power) {
+    if (particles.length > 120) return;
     for (var i = 0; i < n; i++) {
       var a = Math.random() * 6.2832;
       var sp = Math.random() * power;

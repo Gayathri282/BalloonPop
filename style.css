@@ -21,6 +21,7 @@
   -webkit-tap-highlight-color: transparent;
   user-select: none;
   -webkit-user-select: none;
+  -webkit-touch-callout: none;
 }
 
 html, body {
@@ -28,6 +29,7 @@ html, body {
   padding: 0;
   width: 100%;
   height: 100%;
+  height: 100dvh;
   overflow: hidden;
   background-color: var(--bg-bottom);
   font-family: var(--font-family);
@@ -41,6 +43,7 @@ html, body {
   inset: 0;
   width: 100vw;
   height: 100vh;
+  height: 100dvh;
   display: block;
   z-index: 1;
 }
@@ -356,5 +359,45 @@ html, body {
 @media (prefers-reduced-motion: reduce) {
   .fade, .card-icon {
     animation: none !important;
+  }
+}
+
+/* ---------- Mobile Device Optimization Media Queries ---------- */
+@media (max-width: 380px) {
+  .card {
+    padding: 20px 16px;
+    border-radius: 24px;
+    max-width: 310px;
+  }
+  .wordmark {
+    font-size: 30px;
+  }
+  .btn {
+    font-size: 18px;
+    padding: 12px 28px;
+  }
+  .hud-pill {
+    padding: 6px 12px;
+  }
+  .hud-score {
+    font-size: 22px;
+  }
+}
+
+@media (max-height: 540px) {
+  .card {
+    padding: 16px 20px;
+  }
+  .card-icon {
+    font-size: 38px;
+    margin-bottom: 2px;
+  }
+  .wordmark {
+    font-size: 26px;
+    margin-bottom: 4px;
+  }
+  .blurb {
+    font-size: 13.5px;
+    margin-bottom: 12px;
   }
 }
