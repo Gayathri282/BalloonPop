@@ -341,16 +341,29 @@
   function tapAt(x, y) {
     if (state !== STATE_PLAY || !alive) return;
 
+    // Small touch sparkle indicator
+    particles.push({
+      x: x,
+      y: y,
+      vx: (Math.random() - 0.5) * 1.5,
+      vy: (Math.random() - 0.5) * 1.5,
+      r: 4,
+      life: 0.6,
+      decay: 0.05,
+      color: "#ffffff"
+    });
+
     var bestTarget = null;
     var bestD = Infinity;
 
+    // Generous touch hitbox radius (b.r + 26) for hyper touch sensitivity
     for (var i = 0; i < balloons.length; i++) {
       var b = balloons[i];
       if (b.popping) continue;
       var dx = x - b.x;
       var dy = y - b.y;
       var d = Math.sqrt(dx * dx + dy * dy);
-      if (d < b.r + 18 && d < bestD) {
+      if (d < b.r + 26 && d < bestD) {
         bestD = d;
         bestTarget = b;
       }
@@ -932,11 +945,44 @@
     startGame();
   });
 
-  // Pointer Tap handling for balloons
-  canvas.addEventListener("pointerdown", function (e) {
+  // High-Sensitivity Touch & Pointer Handling
+  function handleTouchPoint(clientX, clientY) {
     initAudio();
     if (state === STATE_PLAY) {
-      tapAt(e.clientX, e.clientY);
+      tapAt(clientX, clientY);
+    }
+  }
+
+  // Touch Start (Instant Multi-Touch response)
+  canvas.addEventListener("touchstart", function (e) {
+    e.preventDefault();
+    initAudio();
+    var touches = e.changedTouches || e.touches;
+    for (var i = 0; i < touches.length; i++) {
+      handleTouchPoint(touches[i].clientX, touches[i].clientY);
+    }
+  }, { passive: false });
+
+  // Touch Move (Slide finger across balloons to pop!)
+  canvas.addEventListener("touchmove", function (e) {
+    e.preventDefault();
+    if (state !== STATE_PLAY) return;
+    var touches = e.touches;
+    for (var i = 0; i < touches.length; i++) {
+      handleTouchPoint(touches[i].clientX, touches[i].clientY);
+    }
+  }, { passive: false });
+
+  // Fallback Pointer Events for Mouse / Stylus
+  canvas.addEventListener("pointerdown", function (e) {
+    if (e.pointerType !== "touch") {
+      handleTouchPoint(e.clientX, e.clientY);
+    }
+  });
+
+  canvas.addEventListener("pointermove", function (e) {
+    if (e.pointerType !== "touch" && e.buttons === 1) {
+      handleTouchPoint(e.clientX, e.clientY);
     }
   });
 
