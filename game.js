@@ -574,76 +574,115 @@
     // Shadow
     ctx.fillStyle = "rgba(0,0,0,0.15)";
     ctx.beginPath();
-    ctx.ellipse(0, 18 + bounce * 0.5, 20, 6, 0, 0, 6.2832);
+    ctx.ellipse(0, 18 + bounce * 0.5, 22, 7, 0, 0, 6.2832);
     ctx.fill();
 
-    // Bunny Ears
-    ctx.fillStyle = "#ffb5a7";
+    // Cute Wiggling Dino Tail
+    var tailWiggle = Math.sin(tclock * 12) * 4;
+    ctx.fillStyle = "#52b788";
     ctx.beginPath();
-    ctx.ellipse(-10, -48, 6, 16, -0.1, 0, 6.2832);
-    ctx.ellipse(10, -48, 6, 16, 0.1, 0, 6.2832);
-    ctx.fill();
-    ctx.fillStyle = "#fcd5ce";
-    ctx.beginPath();
-    ctx.ellipse(-10, -48, 3, 10, -0.1, 0, 6.2832);
-    ctx.ellipse(10, -48, 3, 10, 0.1, 0, 6.2832);
+    ctx.moveTo(-12, -10);
+    ctx.quadraticCurveTo(-24 + tailWiggle, -14, -28 + tailWiggle, -6);
+    ctx.quadraticCurveTo(-20, -2, -10, -2);
+    ctx.closePath();
     ctx.fill();
 
-    // Body
-    ctx.fillStyle = "#ffffff";
+    // Dino Back Spikes (Soft Yellow/Orange Spikes)
+    ctx.fillStyle = "#ffb703";
+    for (var s = 0; s < 3; s++) {
+      var sy = -28 + s * 10;
+      var sx = -14 + s * 2;
+      ctx.beginPath();
+      ctx.moveTo(sx, sy);
+      ctx.lineTo(sx - 8, sy - 4);
+      ctx.lineTo(sx + 2, sy + 6);
+      ctx.closePath();
+      ctx.fill();
+    }
+
+    // Chubby Green Dino Body
+    ctx.fillStyle = "#52b788";
     ctx.beginPath();
-    ctx.ellipse(0, -10, 18, 16, 0, 0, 6.2832);
+    ctx.ellipse(0, -14, 20, 18, 0, 0, 6.2832);
     ctx.fill();
 
-    // Head
+    // Pastel Yellow Chubby Belly Patch
+    ctx.fillStyle = "#e9ff70";
     ctx.beginPath();
-    ctx.arc(0, -28, 18, 0, 6.2832);
+    ctx.ellipse(4, -12, 12, 14, 0.1, 0, 6.2832);
     ctx.fill();
 
-    // Rosy Cheeks
+    // Dino Head
+    ctx.fillStyle = "#52b788";
+    ctx.beginPath();
+    ctx.arc(2, -32, 18, 0, 6.2832);
+    ctx.fill();
+
+    // Cute Snout / Nose Ridge
+    ctx.beginPath();
+    ctx.ellipse(12, -30, 8, 7, 0, 0, 6.2832);
+    ctx.fill();
+
+    // Nostrils
+    ctx.fillStyle = "#2d6a4f";
+    ctx.beginPath();
+    ctx.arc(14, -32, 1.2, 0, 6.2832);
+    ctx.arc(17, -32, 1.2, 0, 6.2832);
+    ctx.fill();
+
+    // Rosy Pink Cheeks
     ctx.fillStyle = "#ff85a1";
     ctx.beginPath();
-    ctx.arc(-11, -25, 4, 0, 6.2832);
-    ctx.arc(11, -25, 4, 0, 6.2832);
+    ctx.arc(-4, -26, 4, 0, 6.2832);
+    ctx.arc(10, -24, 4, 0, 6.2832);
     ctx.fill();
 
-    // Expressive Eyes
+    // Expressive Cute Eyes
     ctx.fillStyle = "#2b2d42";
     if (heroState === "hurt") {
       // Spiral / Dizzy Eyes
       ctx.strokeStyle = "#2b2d42";
-      ctx.lineWidth = 2;
+      ctx.lineWidth = 2.2;
       ctx.beginPath();
-      ctx.moveTo(-9, -31); ctx.lineTo(-3, -25);
-      ctx.moveTo(-3, -31); ctx.lineTo(-9, -25);
-      ctx.moveTo(3, -31); ctx.lineTo(9, -25);
-      ctx.moveTo(9, -31); ctx.lineTo(3, -25);
+      ctx.moveTo(-4, -36); ctx.lineTo(2, -30);
+      ctx.moveTo(2, -36); ctx.lineTo(-4, -30);
+      ctx.moveTo(6, -36); ctx.lineTo(12, -30);
+      ctx.moveTo(12, -36); ctx.lineTo(6, -30);
       ctx.stroke();
     } else if (heroState === "cheer") {
       // Happy ^ ^ Eyes
       ctx.strokeStyle = "#2b2d42";
       ctx.lineWidth = 2.5;
       ctx.beginPath();
-      ctx.moveTo(-9, -27); ctx.lineTo(-6, -31); ctx.lineTo(-3, -27);
-      ctx.moveTo(3, -27); ctx.lineTo(6, -31); ctx.lineTo(9, -27);
+      ctx.moveTo(-5, -31); ctx.lineTo(-2, -35); ctx.lineTo(1, -31);
+      ctx.moveTo(5, -31); ctx.lineTo(8, -35); ctx.lineTo(11, -31);
       ctx.stroke();
     } else {
-      // Big Cute Cartoon Eyes
+      // Big Adorable Shiny Cartoon Eyes
       ctx.beginPath();
-      ctx.arc(-6, -28, 3.5, 0, 6.2832);
-      ctx.arc(6, -28, 3.5, 0, 6.2832);
+      ctx.arc(-2, -32, 3.8, 0, 6.2832);
+      ctx.arc(8, -32, 3.8, 0, 6.2832);
       ctx.fill();
       ctx.fillStyle = "#ffffff";
       ctx.beginPath();
-      ctx.arc(-7, -29, 1.2, 0, 6.2832);
-      ctx.arc(5, -29, 1.2, 0, 6.2832);
+      ctx.arc(-3, -33, 1.3, 0, 6.2832);
+      ctx.arc(7, -33, 1.3, 0, 6.2832);
       ctx.fill();
     }
 
-    // Cute Smile Nose
-    ctx.fillStyle = "#ff70a6";
+    // Chubby Tiny Dino Arms
+    var armWave = Math.sin(tclock * 12) * 5;
+    if (heroState === "cheer") armWave = -12;
+    ctx.fillStyle = "#40916c";
     ctx.beginPath();
-    ctx.arc(0, -24, 2, 0, 6.2832);
+    ctx.ellipse(10, -14 + armWave * 0.4, 6, 4, 0.4 + armWave * 0.05, 0, 6.2832);
+    ctx.fill();
+
+    // Chubby Feet
+    ctx.fillStyle = "#40916c";
+    ctx.beginPath();
+    ctx.ellipse(-8, 3, 7, 4, 0, 0, 6.2832);
+    ctx.ellipse(8, 3, 7, 4, 0, 0, 6.2832);
     ctx.fill();
 
     ctx.restore();
