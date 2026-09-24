@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#5fc4f0">
+  <title>Balloon Pop Dash - Fun Arcade Game</title>
+  <meta name="description" content="A cheerful, child-friendly balloon popping game with lively music, cute characters, and exciting powerups!">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Fullscreen Game Canvas -->
+  <canvas id="c"></canvas>
+
+  <!-- HUD Header Overlay -->
+  <div id="hud" class="hidden">
+    <div class="hud-pill">
+      <div class="hud-lives" id="livesContainer" aria-label="Lives remaining">
+        <span class="heart-icon">❤️</span>
+        <span class="heart-icon">❤️</span>
+        <span class="heart-icon">❤️</span>
+      </div>
+    </div>
+    
+    <div class="hud-pill">
+      <span class="level-badge" id="levelBadge">LVL 1</span>
+      <span class="hud-score" id="hudScore">0</span>
+    </div>
+
+    <button class="pause-btn-hud" id="pauseBtn" aria-label="Pause Game">⏸️</button>
+  </div>
+
+  <!-- Title Screen Overlay -->
+  <div class="layer" id="title">
+    <div class="card fade">
+      <div class="card-icon">🎈</div>
+      <h1 class="wordmark">Balloon Pop Dash</h1>
+      <p class="blurb">Tap the floating balloons! Catch shiny gold ones and reach high levels. Watch out for bombs! 💣</p>
+      
+      <button class="btn" id="startBtn">
+        <span>Play Now!</span> ✨
+      </button>
+
+      <div class="legend">
+        <div class="legend-item"><span class="sw" style="background:#ff6f91"></span> +1 Pop</div>
+        <div class="legend-item"><span class="sw" style="background:#ffda3d"></span> +5 Gold</div>
+        <div class="legend-item"><span class="sw" style="background:#a06cd5"></span> +3 Rainbow</div>
+        <div class="legend-item"><span class="sw" style="background:#333a42"></span> 💣 Bomb</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Game Over Screen Overlay -->
+  <div class="layer hidden" id="over">
+    <div class="card fade" id="overCard">
+      <div class="card-icon" id="overIcon">⭐</div>
+      <h2 class="wordmark" id="overTitle" style="font-size: 32px; color: #ff5964;">Super Try!</h2>
+      <p class="result-label">Total Score</p>
+      <div class="final-score" id="finalScore">0</div>
+
+      <div class="best-badge" id="bestBadge">👑 Best: 0</div>
+
+      <div class="stats-grid">
+        <div class="stat-box">
+          <span class="stat-val" id="statPopped">0</span>
+          <span class="stat-lbl">Balloons</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-val" id="statGold">0</span>
+          <span class="stat-lbl">Golden</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-val" id="statLevel">1</span>
+          <span class="stat-lbl">Level</span>
+        </div>
+      </div>
+
+      <button class="btn" id="againBtn">
+        <span>Play Again</span> 🚀
+      </button>
+    </div>
+  </div>
+
+  <!-- Pause Screen Overlay -->
+  <div class="layer hidden" id="pause">
+    <div class="card fade">
+      <div class="card-icon">⏸️</div>
+      <h2 class="wordmark" style="color: #00b4d8;">Game Paused</h2>
+      <p class="blurb">Take a quick breather! Whenever you are ready, tap below to resume.</p>
+      
+      <button class="btn" id="resumeBtn">
+        <span>Resume</span> ▶️
+      </button>
+      <button class="btn btn-secondary" id="restartBtn">
+        <span>Restart</span> 🔄
+      </button>
+    </div>
+  </div>
+
+  <!-- Game Engine Script -->
+  <script src="game.js"></script>
+</body>
+</html>
